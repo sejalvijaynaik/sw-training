@@ -1,0 +1,108 @@
+<form class="form-horizontal" ngNativeValidate [formGroup]="addForm">
+
+    <div class="form-group row">
+        <label class="control-label col-sm-2" for="rollNoId" [style.text-align] = "'center'">Roll No.</label>
+        <div class="col-sm-6">
+            <input type="number" class="form-control" id="rollNoId" formControlName="rollNo" required> 
+        </div>
+        <div class="col-sm-4">
+            <span *ngIf = "rollNo.invalid && (rollNo.dirty || rollNo.touched)" [class] = "'required'">RollNo is required</span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-sm-2" for="nameId" [style.text-align] = "'center'">Name</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="nameId" formControlName="name" required>
+        </div>
+        <div class="col-sm-4">
+            <span *ngIf = "name.invalid && (name.dirty || name.touched)" [class] = "'required'">Name is required</span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-sm-2" for="ageId" [style.text-align] = "'center'">Age</label>
+        <div class="col-sm-6">
+            <input type="number" class="form-control" id="ageId" formControlName="age" required>
+        </div>
+        <div class="col-sm-4">
+            <span *ngIf = "age.invalid && (age.dirty || age.touched)" [class] = "'required'">Age is required</span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-sm-2" for="emailId" [style.text-align] = "'center'">Email</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="emailId" formControlName="email" required>
+        </div>
+        <div class="col-sm-4">
+            <span *ngIf = "email.invalid && (email.dirty || email.touched)" [class] = "'required'">
+                <span *ngIf="email.errors.required">Email is required</span>
+                <span *ngIf="email.errors.pattern">The email address must contain at least the @ character</span>
+            </span>
+        </div>
+    </div>
+
+    <fieldset class="form-group">
+        <div class="row">
+            <label class="control-label col-sm-2" [style.text-align] = "'center'">Gender</label>
+            <div class="col-sm-3" [style.margin-top] = "'5px'" [style.text-align] = "'center'">
+                <span >
+                    <label>Male</label>
+                    <input type="radio" name="gender" value = "male" formControlName="gender" required>
+                </span>
+            </div>
+            <div class="col-sm-3" [style.margin-top] = "'5px'" [style.text-align] = "'left'">
+                <span>
+                    <label>Female</label>
+                    <input type="radio" name="gender" value = "female" formControlName="gender" required>
+                </span>
+            </div>
+            <div class="col-sm-4">
+                <span *ngIf = "gender.invalid && (gender.dirty || gender.touched)" [class] = "'required'">Gender is required</span>
+            </div>
+        </div>
+    </fieldset>
+    
+
+    <div class="form-group row">
+        <label class="control-label col-sm-2" for="dateId" [style.text-align] = "'center'">Date</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="dateId" formControlName="date" required>
+        </div>
+        <div class="col-sm-4">
+            <span *ngIf = "date.invalid && (date.dirty || date.touched)" [class] = "'required'">Date is required</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button [disabled]="!addForm.valid" id = "submitButtonId" class="btn btn-primary" type="submit" (click) = "validate()">SUBMIT</button>
+    </div>
+    
+  </form>
+  
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
