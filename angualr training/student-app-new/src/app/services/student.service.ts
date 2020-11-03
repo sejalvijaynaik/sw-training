@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { Student } from "../classes/student";
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,15 @@ export class StudentService {
   baseUrl:string = "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/";
 
   getStudents():Observable<Student[]>{
-    return this.httpClient.get<Student[]>(this.baseUrl);
+    
+    return this.httpClient.get<Student[]>(this.baseUrl).pipe(
+      catchError(error => {
+        console.log('HTTP Error', error);
+        return Observable.throw(error.statusText);
+      })
+    );
   }
+  
   
   addStudent(student:Student):Observable<Student>{
     
