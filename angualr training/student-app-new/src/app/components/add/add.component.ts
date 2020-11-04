@@ -37,7 +37,7 @@ export class AddComponent implements OnInit {
     this.rollNo = new FormControl("", Validators.required);
     this.name = new FormControl("", [
       Validators.required,
-      Validators.pattern("^[a-zA-Z]+$")
+      Validators.pattern("^[a-zA-Z_ ]+$")
     ]);
     this.age = new FormControl("", Validators.required);
     this.date = new FormControl("", Validators.required);

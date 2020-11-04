@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, throwError } from 'rxjs';
+import { Observable, Observer, throwError } from 'rxjs';
 import { Student } from "../classes/student";
-import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,32 +14,45 @@ export class StudentService {
 
   getStudents():Observable<Student[]>{
     
-    return this.httpClient.get<Student[]>(this.baseUrl).pipe(
-      catchError(error => {
-        console.log('HTTP Error', error);
-        return throwError(error);
-      })
-    );
+    return Observable.create((observer: Observer<Student>) => {
+      this.httpClient.get(this.baseUrl).subscribe((data:any) => {
+            observer.next(data)
+        }, 
+        (error) => {observer.error(error)})
+    })
   }
-  
   
   addStudent(student:Student):Observable<Student>{
     
-    let studentJSON:string = JSON.stringify(student);
-    let httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'}); 
-    console.log(studentJSON);
-
-    return this.httpClient.post<Student>(this.baseUrl, studentJSON, {'headers':httpHeaders});
+    return Observable.create((observer: Observer<Student>) => {
+      let studentJSON:string = JSON.stringify(student);
+      let httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
+      this.httpClient.post<Student>(this.baseUrl, studentJSON, {'headers':httpHeaders}).subscribe((data:any) => {
+            observer.next(data)
+        }, 
+        (error) => {observer.error(error)})
+    })
   }
 
   getStudent(id:string):Observable<Student>{
-    return this.httpClient.get<Student>(this.baseUrl + id);
+    return Observable.create((observer: Observer<Student>) => {
+      this.httpClient.get<Student>(this.baseUrl + id).subscribe((data:any) => {
+            observer.next(data)
+        }, 
+        (error) => {observer.error(error)})
+    })
   }
 
   updateStudent(student:Student):Observable<Student>{
-    let studentJSON:string = JSON.stringify(student);
-    let httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'}); 
-    return this.httpClient.put<Student>(this.baseUrl + student.id, studentJSON, {'headers':httpHeaders});
+    
+    return Observable.create((observer: Observer<Student>) => {
+      let studentJSON:string = JSON.stringify(student);
+      let httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
+      this.httpClient.put<Student>(this.baseUrl + student.id, studentJSON, {'headers':httpHeaders}).subscribe((data:any) => {
+            observer.next(data)
+        }, 
+        (error) => {observer.error(error)})
+    })
   }
   deleteStudent(id:string){
     return this.httpClient.delete<Student>(this.baseUrl + id);
