@@ -29,7 +29,20 @@
                             <input type="text" class="form-control" id="nameId" formControlName="name" required>
                         </div>
                         <div class="col-sm-4">
-                            <span *ngIf = "name.invalid && (name.dirty || name.touched)" [class] = "'required'">Name is required</span>
+                            <span *ngIf = "name.invalid && (name.dirty || name.touched)" [class] = "'required'">
+                                <span *ngIf="name.errors.required">Name is required</span>
+                                <span *ngIf="name.errors.pattern">Name can only contain alphabets</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="dateId" [style.text-align] = "'center'">Date</label>
+                        <div class="col-sm-6">
+                            <input type="date" class="form-control" id="dateId" formControlName="date" (change) = "dobChange()" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <span *ngIf = "date.invalid && (date.dirty || date.touched)" [class] = "'required'">Date is required</span>
                         </div>
                     </div>
                 
@@ -76,17 +89,6 @@
                             </div>
                         </div>
                     </fieldset>
-                    
-                
-                    <div class="form-group row">
-                        <label class="control-label col-sm-2" for="dateId" [style.text-align] = "'center'">Date</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="dateId" formControlName="date" required>
-                        </div>
-                        <div class="col-sm-4">
-                            <span *ngIf = "date.invalid && (date.dirty || date.touched)" [class] = "'required'">Date is required</span>
-                        </div>
-                    </div>
                 
                     <div class="form-group">
                         <button [disabled]="!addForm.valid" id = "submitButtonId" class="btn btn-primary" type="submit" (click) = "validate()" [style.left] = "'15%'" [style.position] = "'relative'" data-dismiss="modal">SUBMIT</button>

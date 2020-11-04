@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Student } from "../classes/student";
 import { catchError } from 'rxjs/operators';
 
@@ -18,7 +18,7 @@ export class StudentService {
     return this.httpClient.get<Student[]>(this.baseUrl).pipe(
       catchError(error => {
         console.log('HTTP Error', error);
-        return Observable.throw(error.statusText);
+        return throwError(error);
       })
     );
   }

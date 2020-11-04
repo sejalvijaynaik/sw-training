@@ -35,7 +35,10 @@ export class AddComponent implements OnInit {
 
   createFormControls():void{
     this.rollNo = new FormControl("", Validators.required);
-    this.name = new FormControl("", Validators.required);
+    this.name = new FormControl("", [
+      Validators.required,
+      Validators.pattern("^[a-zA-Z]+$")
+    ]);
     this.age = new FormControl("", Validators.required);
     this.date = new FormControl("", Validators.required);
     this.email = new FormControl("", [
@@ -104,6 +107,14 @@ export class AddComponent implements OnInit {
     rediresctToList():void{
       this.router.navigate(["/list"]);
     }
-}
 
+    dobChange():void{
+      let dobDate:Date = new Date(this.date.value);
+      let diff = (new Date().getTime() - dobDate.getTime());
+      let ageTotal = Math.trunc(diff/ (1000 * 3600 * 24 *365));
+      this.addForm.patchValue({
+        age: ageTotal,
+      });
+    }
+}
 

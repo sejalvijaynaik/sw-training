@@ -13,12 +13,7 @@ export class UpdateComponent implements OnInit {
 
   @ViewChild('formModalBtn') formModalBtn:ElementRef;
   id:string;
-  rollNoNgModel:number;
-  nameNgModel:string;
-  dateNgModel:string;
-  ageNgModel:number;
-  emailNgModel:string;
-  isMaleNgModel:boolean;
+  isMale:boolean;
 
   updateForm:FormGroup;
   rollNo:FormControl;
@@ -96,13 +91,18 @@ export class UpdateComponent implements OnInit {
   prepopulate():void{
     this.studentService.getStudent(this.id).subscribe((data)=>{
       this.id = data[0].id; 
-      this.rollNoNgModel = data[0].rollNo; 
-      this.nameNgModel = data[0].name;
-      this.ageNgModel = data[0].age;
-      this.dateNgModel = data[0].date;
-      this.emailNgModel = data[0].email;
-      this.isMaleNgModel = data[0].isMale;
-    });
+
+      this.updateForm.patchValue({
+        name: data[0].name,
+        rollNo: data[0].rollNo,
+        age: data[0].age,
+        date: data[0].date,
+        email: data[0].email
+      });
+      this.isMale = data[0].isMale;
+    },
+    (err) => console.log('HTTP Error', err)
+    );
   }
 
   updateStudent():void{
@@ -129,5 +129,14 @@ export class UpdateComponent implements OnInit {
 
   rediresctToList():void{
     this.router.navigate(["/list"]);
+  }
+
+  dobChange():void{
+    let dobDate:Date = new Date(this.date.value);
+    let diff = (new Date().getTime() - dobDate.getTime());
+    let ageTotal = Math.trunc(diff/ (1000 * 3600 * 24 *365));
+    this.updateForm.patchValue({
+      age: ageTotal,
+    });
   }
 }
