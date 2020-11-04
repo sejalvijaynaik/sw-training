@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Student } from 'src/app/classes/student';
@@ -11,6 +11,7 @@ import { StudentService } from 'src/app/services/student.service';
 })
 export class AddComponent implements OnInit {
 
+  @ViewChild('formModalBtn') formModalBtn:ElementRef;
   addForm:FormGroup;
   rollNo:FormControl;
   name:FormControl;
@@ -25,6 +26,11 @@ export class AddComponent implements OnInit {
   ngOnInit(): void {
     this.createFormControls();
     this.createForm();
+    
+  }
+
+  ngAfterViewInit() {
+    this.formModalBtn.nativeElement.click();
   }
 
   createFormControls():void{
@@ -89,9 +95,15 @@ export class AddComponent implements OnInit {
                       isMale:isMale, 
                       date:this.date.value};
     this.studentApiService.addStudent(this.studentAPI).subscribe(data=>{
-      this.router.navigate(["/list"]);
+      this.rediresctToList();
     },
     (err) => console.log('HTTP Error', err)
     );
     }
+
+    rediresctToList():void{
+      this.router.navigate(["/list"]);
+    }
 }
+
+

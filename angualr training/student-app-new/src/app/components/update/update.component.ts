@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from 'src/app/classes/student';
@@ -11,6 +11,7 @@ import { StudentService } from 'src/app/services/student.service';
 })
 export class UpdateComponent implements OnInit {
 
+  @ViewChild('formModalBtn') formModalBtn:ElementRef;
   id:string;
   rollNoNgModel:number;
   nameNgModel:string;
@@ -39,6 +40,10 @@ export class UpdateComponent implements OnInit {
         this.createFormControls();
         this.createForm();
       });
+    }
+
+    ngAfterViewInit() {
+      this.formModalBtn.nativeElement.click();
     }
   
     createFormControls():void{
@@ -120,5 +125,9 @@ export class UpdateComponent implements OnInit {
     },
     (err) => console.log('HTTP Error', err)
     );
+  }
+
+  rediresctToList():void{
+    this.router.navigate(["/list"]);
   }
 }

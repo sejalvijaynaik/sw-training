@@ -2,15 +2,9 @@ input[type="radio"]{
     margin: 0 0 0 10px;
 }
 
-button{
-    left: 15%; 
-    position: relative;
-    background-color: purple;
-}
 
 .required{
-    color: white;
-    background-color: red;
+    color: red;
     position: relative;
     top: 6px;
 }
