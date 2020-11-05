@@ -5,7 +5,7 @@ import { AddComponent } from "../components/add/add.component";
 import { UpdateComponent } from "../components/update/update.component";
 import { DeleteComponent } from "../components/delete/delete.component";
 import { ErrorComponent } from "../components/error/error.component";
-
+import { LoginComponent } from "../components/login/login.component";
 
 export class RoutesClass {
     public static routes : Routes = [
@@ -14,6 +14,7 @@ export class RoutesClass {
         {path:"add", component:AddComponent},
         {path:"update/:id", component:UpdateComponent},
         {path:"delete/:id", component:DeleteComponent},
+        {path:"login", component:LoginComponent},
         {path:"", redirectTo:"/home", pathMatch:"full"},
         { path: '**', component: ErrorComponent}
       ];

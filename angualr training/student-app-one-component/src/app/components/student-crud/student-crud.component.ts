@@ -14,7 +14,6 @@ export class StudentCrudComponent implements OnInit {
   students:Student[] = [];
 
   id:string;
-  isMale:boolean = null;
   addForm:FormGroup;
   rollNo:FormControl;
   name:FormControl;
@@ -52,7 +51,7 @@ export class StudentCrudComponent implements OnInit {
     this.date = new FormControl("", Validators.required);
     this.email = new FormControl("", [
       Validators.required,
-      Validators.pattern("[^ @]*@[^ @]*")
+      Validators.pattern("[[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{1,100}]*")
     ]);
     this.gender = new FormControl("", Validators.required);
   }
@@ -69,24 +68,7 @@ export class StudentCrudComponent implements OnInit {
   }
 
   validate():void{
-    if(this.rollNo.invalid){
-      this.rollNo.markAsDirty();
-    }
-    if(this.name.invalid){
-      this.name.markAsDirty();
-    }
-    if(this.date.invalid){
-      this.date.markAsDirty();
-    }
-    if(this.age.invalid){
-      this.age.markAsDirty();
-    }
-    if(this.email.invalid){
-      this.email.markAsDirty();
-    }
-    if(this.gender.invalid){
-      this.gender.markAsDirty();
-    }
+  
     if(this.addForm.valid){
       if(this.addOrUpdateAction == "add"){
         this.addStudent();
@@ -138,18 +120,27 @@ export class StudentCrudComponent implements OnInit {
     }
 
     prepopulate(id:string):void{
+      
+      let gender:string;
       this.addOrUpdateAction = "update";
       this.studentService.getStudent(id).subscribe((data)=>{
+        
         this.id = data[0].id; 
-  
+        if(data[0].isMale == true){
+          gender = "male";
+        }
+        else{
+          gender = "female";
+        }
+        
         this.addForm.patchValue({
           name: data[0].name,
           rollNo: data[0].rollNo,
           age: data[0].age,
           date: data[0].date,
-          email: data[0].email
+          email: data[0].email,
+          gender: gender
         });
-        this.isMale = data[0].isMale;
       },
       (err) => console.log('HTTP Error', err)
       );

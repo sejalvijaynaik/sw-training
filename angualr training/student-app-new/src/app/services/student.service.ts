@@ -14,12 +14,15 @@ export class StudentService {
 
   getStudents():Observable<Student[]>{
     
-    return Observable.create((observer: Observer<Student>) => {
+
+    return this.httpClient.get<Student[]>(this.baseUrl);
+
+    /*return Observable.create((observer: Observer<Student>) => {
       this.httpClient.get(this.baseUrl).subscribe((data:any) => {
             observer.next(data)
         }, 
         (error) => {observer.error(error)})
-    })
+    })*/
   }
   
   addStudent(student:Student):Observable<Student>{

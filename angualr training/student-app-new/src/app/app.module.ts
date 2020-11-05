@@ -14,6 +14,7 @@ import { AddComponent } from './components/add/add.component';
 import { UpdateComponent } from './components/update/update.component';
 import { DeleteComponent } from './components/delete/delete.component';
 import { ErrorComponent } from './components/error/error.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ErrorComponent } from './components/error/error.component';
     AddComponent,
     UpdateComponent,
     DeleteComponent,
-    ErrorComponent
+    ErrorComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

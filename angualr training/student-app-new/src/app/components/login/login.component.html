@@ -1,0 +1,48 @@
+<button id="formModalBtn" #formModalBtn [hidden]="true" data-toggle="modal" data-target="#formModal" data-backdrop="static" data-keyboard="false"></button>
+
+<div class="modal" id="formModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+  
+            <div class="modal-header">
+                <h4 class="modal-title">Login</h4>
+                <button type="button" class="close" data-dismiss="modal" (click) = "rediresctToList()" >&times;</button>
+            </div>
+     
+            <div class="modal-body">
+                
+                <form class="form-horizontal" ngNativeValidate [formGroup]="addForm">
+
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="rollNoId" [style.text-align] = "'center'">Roll No.</label>
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control" id="rollNoId" formControlName="rollNo" required> 
+                        </div>
+                        <div class="col-sm-4">
+                            <span *ngIf = "rollNo.invalid && (rollNo.dirty || rollNo.touched)" [class] = "'required'">RollNo is required</span>
+                        </div>
+                    </div>
+                
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="nameId" [style.text-align] = "'center'">Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="nameId" formControlName="name" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <span *ngIf = "name.invalid && (name.dirty || name.touched)" [class] = "'required'">
+                                <span *ngIf="name.errors.required">Name is required</span>
+                                <span *ngIf="name.errors.pattern">Name can only contain alphabets</span>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <button [disabled]="!addForm.valid" id = "submitButtonId" class="btn btn-primary" type="submit" (click) = "validate()" [style.left] = "'15%'" [style.position] = "'relative'" data-dismiss="modal">SUBMIT</button>
+                    </div>
+                    
+                  </form>
+            </div>
+  
+        </div>
+    </div>
+</div>

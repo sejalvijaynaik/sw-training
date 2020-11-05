@@ -100,7 +100,7 @@
                         <div class="col-sm-4">
                             <span *ngIf = "email.invalid && (email.dirty || email.touched)" [class] = "'required'">
                                 <span *ngIf="email.errors.required">Email is required</span>
-                                <span *ngIf="email.errors.pattern">The email address must contain at least the @ character</span>
+                                <span *ngIf="email.errors.pattern">The email address must contain at least the '@' and the '.' character</span>
                             </span>
                         </div>
                     </div>
@@ -111,18 +111,22 @@
                             <div class="col-sm-3" [style.margin-top] = "'5px'" [style.text-align] = "'center'">
                                 <span >
                                     <label>Male</label>
-                                    <input type="radio" name="gender" value = "male" [checked] = "isMale == true" formControlName="gender" required>
+                                    <input type="radio" name="gender" value = "male" formControlName="gender" required>
                                 </span>
                             </div>
                             <div class="col-sm-3" [style.margin-top] = "'5px'" [style.text-align] = "'left'">
                                 <span>
                                     <label>Female</label>
-                                    <input type="radio" name="gender" value = "female" [checked] = "isMale == false" formControlName="gender" required>
+                                    <input type="radio" name="gender" value = "female" formControlName="gender" required>
                                 </span>
                             </div>
+                            
                             <div class="col-sm-4">
-                                <span *ngIf = "gender.invalid && (gender.dirty || gender.touched)" [class] = "'required'">Gender is required</span>
+                                <div *ngIf="addOrUpdateAction == 'add'">
+                                    <span *ngIf = "gender.invalid && gender.dirty" [class] = "'required'">Gender is required</span>
+                                </div>
                             </div>
+                        
                         </div>
                     </fieldset>
                 
