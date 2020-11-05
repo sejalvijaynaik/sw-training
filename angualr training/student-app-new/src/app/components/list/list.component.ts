@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StudentService } from '../../services/student.service';
 import { Student } from '../../classes/student';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'list',
@@ -12,7 +13,7 @@ export class ListComponent implements OnInit {
 
   students:Student[] = [];
   
-  constructor(private studentService:StudentService, private router:Router) { 
+  constructor(private studentService:StudentService, private router:Router, private authService:AuthService) { 
   }
   
   ngOnInit(): void {
@@ -34,5 +35,8 @@ export class ListComponent implements OnInit {
     if(confirm("Are you sure to delete?")) {
       this.router.navigate(['/delete', id]);
     }
+  }
+  checkStatus():void{
+    this.authService.checkStatus("admin", "admin");
   }
 }

@@ -15,6 +15,8 @@ import { UpdateComponent } from './components/update/update.component';
 import { DeleteComponent } from './components/delete/delete.component';
 import { ErrorComponent } from './components/error/error.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthService } from "./services/auth.service";
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { LoginComponent } from './components/login/login.component';
     UpdateComponent,
     DeleteComponent,
     ErrorComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,10 @@ import { LoginComponent } from './components/login/login.component';
     RouterModule.forRoot(RoutesClass.routes),
     ReactiveFormsModule
   ],
-  providers: [StudentService],
+  providers: [
+    StudentService,
+    AuthService
+  ],
   
   bootstrap: [AppComponent]
 })

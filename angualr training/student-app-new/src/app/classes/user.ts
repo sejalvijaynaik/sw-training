@@ -1,5 +1,4 @@
-export class User {
-    username:string;
-    password:string;
-    isLoggedIn:boolean
+export interface User {
+    username : string,
+    password : string
 }
