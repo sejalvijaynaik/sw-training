@@ -11,17 +11,19 @@ export class AppComponent {
   title = 'student-app-new';
   logInLinkShow:string;
   logoutLinkShow:string;
+  
   constructor(private authService:AuthService){
     window.document.body.style.backgroundColor = 'plum';
-    
-    if(authService.checkLoginStatus()){
-      this.logInLinkShow = "none";
+
+    authService.checkLoginStatus().subscribe((data)=> {
+      if(data){
+        this.logInLinkShow = "none";
       this.logoutLinkShow = "inline-block";
-    }
-    else
-    {
-      this.logInLinkShow = "inline-block";
-      this.logoutLinkShow = "none";
-    }
+      }
+      else{
+        this.logInLinkShow = "inline-block";
+        this.logoutLinkShow = "none";
+      }
+    });
   }
 }

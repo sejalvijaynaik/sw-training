@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from "../classes/user";
 
 @Injectable({
@@ -7,6 +8,7 @@ import { User } from "../classes/user";
 export class AuthService {
 
   users:User[];
+  loginStatus:boolean;
   constructor() {
     this.populateUsers();
    }
@@ -41,11 +43,18 @@ export class AuthService {
     }
   }
 
-  checkLoginStatus():boolean{
+  checkLoginStatus():Observable<boolean>{
     if(sessionStorage.getItem("currentUserUsername") != null){
-      return true;
+      this.loginStatus = true;
     } 
-    return false;
+    else{
+      this.loginStatus = false;
+    }
+    let loginStatusObservable = new Observable<boolean>((observer) => {
+      observer.next(this.loginStatus);
+    });
+
+    return loginStatusObservable;
   }
 
   logOutUser():void{

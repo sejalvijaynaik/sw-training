@@ -17,7 +17,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from "./services/auth.service";
 import { LogoutComponent } from './components/logout/logout.component';
-
+import { RouteGuard } from "./services/router-guard";
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import { LogoutComponent } from './components/logout/logout.component';
   ],
   providers: [
     StudentService,
-    AuthService
+    AuthService,
+    RouteGuard
   ],
   
   bootstrap: [AppComponent]
