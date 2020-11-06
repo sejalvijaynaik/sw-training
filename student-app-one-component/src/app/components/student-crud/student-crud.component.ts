@@ -74,7 +74,7 @@ export class StudentCrudComponent implements OnInit {
     this.studentService.addStudent(this.studentAPI).subscribe(data=>{
       this.addForm.reset();
       this.getStudents();
-      
+      alert("Student added");
     },
     (err) => console.log('HTTP Error', err)
     );
@@ -143,6 +143,7 @@ export class StudentCrudComponent implements OnInit {
       this.studentService.updateStudent(student).subscribe((data)=>{
         this.addForm.reset();
         this.getStudents();
+        alert("Student updated");
       },
       (err) => console.log('HTTP Error', err)
       );
@@ -152,6 +153,7 @@ export class StudentCrudComponent implements OnInit {
       if(confirm("Are you sure to delete?")) {
         this.studentService.deleteStudent(id).subscribe((data)=>{
           this.getStudents();
+          alert("Student deleted");
         },
         (err) => console.log('HTTP Error', err)
         );
