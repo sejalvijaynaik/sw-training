@@ -24,12 +24,12 @@ export class StudentCrudComponent implements OnInit {
     private formBuilder:FormBuilder
     ) { 
       this.addForm = this.formBuilder.group({
-        rollNo: ['rollNoValue', Validators.required],
-        name: ['', Validators.required],
+        rollNo: ['', Validators.required],
+        name: ['', [Validators.required,  Validators.pattern("^[a-zA-Z_ ]+$")]],
         age: ['', Validators.required],
         date: ['', Validators.required],
         gender: ['', Validators.required],
-        email: ['', Validators.required]
+        email: ['', [Validators.required, Validators.email]]
       });
   }
   
@@ -49,28 +49,28 @@ export class StudentCrudComponent implements OnInit {
   
     if(this.addForm.valid){
       if(this.addOrUpdateAction == "add"){
-        //this.addStudent();
+        this.addStudent();
       }
       else{
-        //this.updateStudent();
+        this.updateStudent();
       }
     }
   }
 
-  /*addStudent():void{
+  addStudent():void{
 
     let isMale:boolean = true;
 
-    if(this.addForm.controls['gender'].value == 'female'){
+    if(this.addForm.get('gender').value == 'female'){
       isMale = false;
     }
     this.studentAPI = {id:null, 
-                      rollNo:this.rollNo.value, 
-                      name:this.name.value, 
-                      age:this.age.value, 
-                      email:this.email.value, 
+                      rollNo:this.addForm.get('rollNo').value, 
+                      name:this.addForm.get('name').value, 
+                      age:this.addForm.get('age').value, 
+                      email:this.addForm.get('email').value, 
                       isMale:isMale, 
-                      date:this.date.value};
+                      date:this.addForm.get('date').value};
     this.studentService.addStudent(this.studentAPI).subscribe(data=>{
       this.addForm.reset();
       this.getStudents();
@@ -78,7 +78,7 @@ export class StudentCrudComponent implements OnInit {
     },
     (err) => console.log('HTTP Error', err)
     );
-    }*/
+    }
 
     refreshAddForm():void{
       this.addForm.reset();
@@ -97,7 +97,7 @@ export class StudentCrudComponent implements OnInit {
       this.addOrUpdateAction = "add";
     }
 
-    /*prepopulate(id:string):void{
+    prepopulate(id:string):void{
       
       let gender:string;
       this.addOrUpdateAction = "update";
@@ -122,30 +122,31 @@ export class StudentCrudComponent implements OnInit {
       },
       (err) => console.log('HTTP Error', err)
       );
-    }*/
+    }
 
-    /*updateStudent():void{
+    updateStudent():void{
     
       let isMale:boolean = true;
   
-      if(this.gender.value == 'female'){
+      if(this.addForm.get('gender').value == 'female'){
         isMale = false;
       }
   
-      let student:Student = new Student(this.id, 
-                                    this.name.value, 
-                                    this.rollNo.value, 
-                                    this.age.value, 
-                                    this.date.value, 
-                                    this.email.value, 
-                                    isMale);
+      let student:Student = new Student(
+        this.id, 
+        this.addForm.get('name').value, 
+        this.addForm.get('rollNo').value, 
+        this.addForm.get('age').value, 
+        this.addForm.get('date').value, 
+        this.addForm.get('email').value, 
+        isMale);
       this.studentService.updateStudent(student).subscribe((data)=>{
         this.addForm.reset();
         this.getStudents();
       },
       (err) => console.log('HTTP Error', err)
       );
-    }*/
+    }
 
     deleteStudent(id:string):void{
       if(confirm("Are you sure to delete?")) {

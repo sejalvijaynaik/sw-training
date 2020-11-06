@@ -26,7 +26,9 @@ import { RoutesClass } from "./classes/route-class";
     RouterModule.forRoot(RoutesClass.routes),
     ReactiveFormsModule
   ],
-  providers: [StudentService],
+  providers: [
+    StudentService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
