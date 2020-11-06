@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Student } from 'src/app/classes/student';
 import { StudentService } from 'src/app/services/student.service';
@@ -14,24 +14,28 @@ export class StudentCrudComponent implements OnInit {
   students:Student[] = [];
 
   id:string;
-  addForm:FormGroup;
-  rollNo:FormControl;
-  name:FormControl;
-  age:FormControl;
-  date:FormControl;
-  email:FormControl;
-  gender:FormControl;
+  addForm:any;
   studentAPI:Student;
   addOrUpdateAction:string;
   
-  constructor(private studentService:StudentService, private router:Router) { 
+  constructor(
+    private studentService:StudentService, 
+    private router:Router, 
+    private formBuilder:FormBuilder
+    ) { 
+      this.addForm = this.formBuilder.group({
+        rollNo: ['rollNoValue', Validators.required],
+        name: ['', Validators.required],
+        age: ['', Validators.required],
+        date: ['', Validators.required],
+        gender: ['', Validators.required],
+        email: ['', Validators.required]
+      });
   }
   
   ngOnInit(): void {
-    this.createFormControls();
-    this.createForm();
     this.getStudents();
-  }
+   }
 
   getStudents():void{
     this.studentService.getStudents().subscribe((data)=>{
@@ -41,49 +45,23 @@ export class StudentCrudComponent implements OnInit {
     );
   }
 
-  createFormControls():void{
-    this.rollNo = new FormControl("", Validators.required);
-    this.name = new FormControl("", [
-      Validators.required,
-      Validators.pattern("^[a-zA-Z_ ]+$")
-    ]);
-    this.age = new FormControl("", Validators.required);
-    this.date = new FormControl("", Validators.required);
-    this.email = new FormControl("", [
-      Validators.required,
-      Validators.pattern("[[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{1,100}]*")
-    ]);
-    this.gender = new FormControl("", Validators.required);
-  }
-
-  createForm():void{
-    this.addForm = new FormGroup({
-      name : this.name,
-      age : this.age,
-      rollNo : this.rollNo,
-      email :this.email,
-      gender : this.gender,
-      date : this.date,
-    });
-  }
-
   validate():void{
   
     if(this.addForm.valid){
       if(this.addOrUpdateAction == "add"){
-        this.addStudent();
+        //this.addStudent();
       }
       else{
-        this.updateStudent();
+        //this.updateStudent();
       }
     }
   }
 
-  addStudent():void{
+  /*addStudent():void{
 
     let isMale:boolean = true;
 
-    if(this.gender.value == 'female'){
+    if(this.addForm.controls['gender'].value == 'female'){
       isMale = false;
     }
     this.studentAPI = {id:null, 
@@ -100,14 +78,14 @@ export class StudentCrudComponent implements OnInit {
     },
     (err) => console.log('HTTP Error', err)
     );
-    }
+    }*/
 
     refreshAddForm():void{
       this.addForm.reset();
     }
 
     dobChange():void{
-      let dobDate:Date = new Date(this.date.value);
+      let dobDate:Date = new Date(this.addForm.controls['date'].value);
       let diff = (new Date().getTime() - dobDate.getTime());
       let ageTotal = Math.trunc(diff/ (1000 * 3600 * 24 *365));
       this.addForm.patchValue({
@@ -119,7 +97,7 @@ export class StudentCrudComponent implements OnInit {
       this.addOrUpdateAction = "add";
     }
 
-    prepopulate(id:string):void{
+    /*prepopulate(id:string):void{
       
       let gender:string;
       this.addOrUpdateAction = "update";
@@ -144,9 +122,9 @@ export class StudentCrudComponent implements OnInit {
       },
       (err) => console.log('HTTP Error', err)
       );
-    }
+    }*/
 
-    updateStudent():void{
+    /*updateStudent():void{
     
       let isMale:boolean = true;
   
@@ -167,7 +145,7 @@ export class StudentCrudComponent implements OnInit {
       },
       (err) => console.log('HTTP Error', err)
       );
-    }
+    }*/
 
     deleteStudent(id:string):void{
       if(confirm("Are you sure to delete?")) {
