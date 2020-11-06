@@ -131,7 +131,7 @@
                     </fieldset>
                 
                     <div class="form-group">
-                        <button [disabled]="!addForm.valid" id = "submitButtonId" class="btn btn-primary" type="submit" (click) = "validate()"  data-dismiss="modal">SUBMIT</button>
+                        <button [disabled]="!addForm.valid || !addForm.dirty" id = "submitButtonId" class="btn btn-primary" type="submit" (click) = "validate()"  data-dismiss="modal">SUBMIT</button>
                     </div>
                     
                   </form>
