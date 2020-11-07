@@ -1,8 +1,0 @@
-{
-    "/api/*": {
-      "target": "http://gsmktg.azurewebsites.net/",
-      "secure": false,
-      "changeOrigin": false
-    }
-  }
-  
