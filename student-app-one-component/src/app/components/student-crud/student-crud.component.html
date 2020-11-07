@@ -111,13 +111,13 @@
                             <div class="col-sm-3" [style.margin-top] = "'5px'" [style.text-align] = "'center'">
                                 <span >
                                     <label>Male</label>
-                                    <input type="radio" name="gender" value = "male" formControlName="gender" required>
+                                    <input type="radio" name="gender" [value] = true formControlName="gender" required>
                                 </span>
                             </div>
                             <div class="col-sm-3" [style.margin-top] = "'5px'" [style.text-align] = "'left'">
                                 <span>
                                     <label>Female</label>
-                                    <input type="radio" name="gender" value = "female" formControlName="gender" required>
+                                    <input type="radio" name="gender" [value] = false formControlName="gender" required>
                                 </span>
                             </div>
                             

@@ -23,14 +23,18 @@ export class StudentCrudComponent implements OnInit {
     private router:Router, 
     private formBuilder:FormBuilder
     ) { 
-      this.addForm = this.formBuilder.group({
-        rollNo: ['', Validators.required],
-        name: ['', [Validators.required,  Validators.pattern("^[a-zA-Z_ ]+$")]],
-        age: ['', Validators.required],
-        date: ['', Validators.required],
-        gender: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]]
-      });
+      this.formBuild();
+  }
+
+  formBuild(){
+    this.addForm = this.formBuilder.group({
+      rollNo: ['', Validators.required],
+      name: ['', [Validators.required,  Validators.pattern("^[a-zA-Z_ ]+$")]],
+      age: ['', Validators.required],
+      date: ['', Validators.required],
+      gender: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    });
   }
   
   ngOnInit(): void {
@@ -58,18 +62,12 @@ export class StudentCrudComponent implements OnInit {
   }
 
   addStudent():void{
-
-    let isMale:boolean = true;
-
-    if(this.addForm.get('gender').value == 'female'){
-      isMale = false;
-    }
     this.studentAPI = {id:null, 
                       rollNo:this.addForm.get('rollNo').value, 
                       name:this.addForm.get('name').value, 
                       age:this.addForm.get('age').value, 
                       email:this.addForm.get('email').value, 
-                      isMale:isMale, 
+                      isMale:this.addForm.get('gender').value, 
                       date:this.addForm.get('date').value};
     this.studentService.addStudent(this.studentAPI).subscribe(data=>{
       this.addForm.reset();
@@ -94,30 +92,23 @@ export class StudentCrudComponent implements OnInit {
     }
 
     setAddAction():void{
+      this.formBuild();
       this.addOrUpdateAction = "add";
     }
 
     prepopulate(id:string):void{
-      
-      let gender:string;
+      this.formBuild();
       this.addOrUpdateAction = "update";
+      this.id = id;
       this.studentService.getStudent(id).subscribe((data)=>{
-        
-        this.id = data[0].id; 
-        if(data[0].isMale == true){
-          gender = "male";
-        }
-        else{
-          gender = "female";
-        }
-        
+
         this.addForm.patchValue({
           name: data[0].name,
           rollNo: data[0].rollNo,
           age: data[0].age,
           date: data[0].date,
           email: data[0].email,
-          gender: gender
+          gender: data[0].isMale
         });
       },
       (err) => console.log('HTTP Error', err)
@@ -125,25 +116,20 @@ export class StudentCrudComponent implements OnInit {
     }
 
     updateStudent():void{
-    
-      let isMale:boolean = true;
-  
-      if(this.addForm.get('gender').value == 'female'){
-        isMale = false;
-      }
-  
-      let student:Student = new Student(
-        this.id, 
-        this.addForm.get('name').value, 
-        this.addForm.get('rollNo').value, 
-        this.addForm.get('age').value, 
-        this.addForm.get('date').value, 
-        this.addForm.get('email').value, 
-        isMale);
-      this.studentService.updateStudent(student).subscribe((data)=>{
+      this.studentAPI = {
+        id:this.id, 
+        rollNo:this.addForm.get('rollNo').value, 
+        name:this.addForm.get('name').value, 
+        age:this.addForm.get('age').value, 
+        email:this.addForm.get('email').value, 
+        isMale:this.addForm.get('gender').value, 
+        date:this.addForm.get('date').value
+      };
+
+      this.studentService.updateStudent(this.studentAPI).subscribe((data)=>{
         this.addForm.reset();
         this.getStudents();
-        alert("Student updated");
+        alert("Student updated"); 
       },
       (err) => console.log('HTTP Error', err)
       );
