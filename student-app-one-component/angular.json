@@ -70,7 +70,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "student-app-one-component:build:production"
+              "browserTarget": "student-app-one-component:build:production",
+              "proxyConfig": "proxy.conf.json"
             }
           }
         },
