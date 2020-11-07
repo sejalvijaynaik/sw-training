@@ -70,16 +70,11 @@ export class StudentCrudComponent implements OnInit {
                       isMale:this.addForm.get('gender').value, 
                       date:this.addForm.get('date').value};
     this.studentService.addStudent(this.studentAPI).subscribe(data=>{
-      this.addForm.reset();
       this.getStudents();
       alert("Student added");
     },
     (err) => console.log('HTTP Error', err)
     );
-    }
-
-    refreshAddForm():void{
-      this.addForm.reset();
     }
 
     dobChange():void{
@@ -127,7 +122,6 @@ export class StudentCrudComponent implements OnInit {
       };
 
       this.studentService.updateStudent(this.studentAPI).subscribe((data)=>{
-        this.addForm.reset();
         this.getStudents();
         alert("Student updated"); 
       },
