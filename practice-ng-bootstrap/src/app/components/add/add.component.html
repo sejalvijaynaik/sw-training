@@ -1,0 +1,207 @@
+<!--<button id="formModalBtn" #formModalBtn data-toggle="modal" data-target="#formModal">ADD</button>
+
+<div class="modal" id="formModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+  
+            <div class="modal-header">
+                <h4 class="modal-title">Add Student</h4>
+                <button type="button" class="close" data-dismiss="modal" >&times;</button>
+            </div>
+     
+            <div class="modal-body">
+                
+                <form class="form-horizontal" [formGroup]="addForm">
+
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="rollNoId" [style.text-align] = "'center'">Roll No.</label>
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control" id="rollNoId" formControlName="rollNo"> 
+                        </div>
+                        <div class="col-sm-4">
+                            <span *ngIf = "rollNo.invalid && (rollNo.dirty || rollNo.touched)" [class] = "'required'">RollNo is required</span>
+                        </div>
+                    </div>
+                
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="nameId" [style.text-align] = "'center'">Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="nameId" formControlName="name">
+                        </div>
+                        <div class="col-sm-4">
+                            <span *ngIf = "name.invalid && (name.dirty || name.touched)" [class] = "'required'">
+                                <span *ngIf="name.errors.required">Name is required</span>
+                                <span *ngIf="name.errors.pattern">Name can only contain alphabets</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="dateId" [style.text-align] = "'center'">Date</label>
+                        <div class="col-sm-6">
+                            <input type="date" class="form-control" id="dateId" formControlName="date" (change) = "dobChange()">
+                        </div>
+                        <div class="col-sm-4">
+                            <span *ngIf = "date.invalid && (date.dirty || date.touched)" [class] = "'required'">Date is required</span>
+                        </div>
+                    </div>
+                
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="ageId" [style.text-align] = "'center'">Age</label>
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control" id="ageId" formControlName="age">
+                        </div>
+                        <div class="col-sm-4">
+                            <span *ngIf = "age.invalid && (age.dirty || age.touched)" [class] = "'required'">Age is required</span>
+                        </div>
+                    </div>
+                
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="emailId" [style.text-align] = "'center'">Email</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="emailId" formControlName="email">
+                        </div>
+                        <div class="col-sm-4">
+                            <span *ngIf = "email.invalid && (email.dirty || email.touched)" [class] = "'required'">
+                                <span *ngIf="email.errors.required">Email is required</span>
+                                <span *ngIf="email.errors.pattern">The email address must contain at least the @ character</span>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <label class="control-label col-sm-2" [style.text-align] = "'center'">Gender</label>
+                            <div class="col-sm-3" [style.margin-top] = "'5px'" [style.text-align] = "'center'">
+                                <span >
+                                    <label>Male</label>
+                                    <input type="radio" name="gender" value = "male" formControlName="gender">
+                                </span>
+                            </div>
+                            <div class="col-sm-3" [style.margin-top] = "'5px'" [style.text-align] = "'left'">
+                                <span>
+                                    <label>Female</label>
+                                    <input type="radio" name="gender" value = "female" formControlName="gender">
+                                </span>
+                            </div>
+                            <div class="col-sm-4">
+                                <span *ngIf = "gender.invalid && (gender.dirty || gender.touched)" [class] = "'required'">Gender is required</span>
+                            </div>
+                        </div>
+                    </fieldset>
+                
+                    <div class="form-group">
+                        <button [disabled]="!addForm.valid" id = "submitButtonId" class="btn btn-primary" type="submit" (click) = "validate()" [style.left] = "'15%'" [style.position] = "'relative'" data-dismiss="modal">SUBMIT</button>
+                    </div>
+                    
+                  </form>
+            </div>
+  
+        </div>
+    </div>
+</div>
+-->
+<ng-template #content let-modal>
+    
+    <!--Modal Header-->
+    <div class="modal-header">
+      <h4 class="modal-title">ADD FORM</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    <!--Modal Body-->
+    <div class="modal-body">
+
+        <form class="form-horizontal" [formGroup]="addForm">
+
+            <div class="form-group row">
+                <label class="control-label col-sm-2" for="rollNoId" [style.text-align] = "'center'">Roll No.</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" id="rollNoId" formControlName="rollNo"> 
+                </div>
+                <div class="col-sm-4">
+                    <span *ngIf = "rollNo.invalid && (rollNo.dirty || rollNo.touched)" [class] = "'required'">RollNo is required</span>
+                </div>
+            </div>
+        
+            <div class="form-group row">
+                <label class="control-label col-sm-2" for="nameId" [style.text-align] = "'center'">Name</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="nameId" formControlName="name">
+                </div>
+                <div class="col-sm-4">
+                    <span *ngIf = "name.invalid && (name.dirty || name.touched)" [class] = "'required'">
+                        <span *ngIf="name.errors.required">Name is required</span>
+                        <span *ngIf="name.errors.pattern">Name can only contain alphabets</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="control-label col-sm-2" for="dateId" [style.text-align] = "'center'">Date</label>
+                <div class="col-sm-6">
+                    <input type="date" class="form-control" id="dateId" formControlName="date" (change) = "dobChange()">
+                </div>
+                <div class="col-sm-4">
+                    <span *ngIf = "date.invalid && (date.dirty || date.touched)" [class] = "'required'">Date is required</span>
+                </div>
+            </div>
+        
+            <div class="form-group row">
+                <label class="control-label col-sm-2" for="ageId" [style.text-align] = "'center'">Age</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" id="ageId" formControlName="age">
+                </div>
+                <div class="col-sm-4">
+                    <span *ngIf = "age.invalid && (age.dirty || age.touched)" [class] = "'required'">Age is required</span>
+                </div>
+            </div>
+        
+            <div class="form-group row">
+                <label class="control-label col-sm-2" for="emailId" [style.text-align] = "'center'">Email</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="emailId" formControlName="email">
+                </div>
+                <div class="col-sm-4">
+                    <span *ngIf = "email.invalid && (email.dirty || email.touched)" [class] = "'required'">
+                        <span *ngIf="email.errors.required">Email is required</span>
+                        <span *ngIf="email.errors.pattern">The email address must contain at least the @ character</span>
+                    </span>
+                </div>
+            </div>
+        
+            <fieldset class="form-group">
+                <div class="row">
+                    <label class="control-label col-sm-2" [style.text-align] = "'center'">Gender</label>
+                    <div class="col-sm-3" [style.margin-top] = "'5px'" [style.text-align] = "'center'">
+                        <span >
+                            <label>Male</label>
+                            <input type="radio" name="gender" value = "male" formControlName="gender">
+                        </span>
+                    </div>
+                    <div class="col-sm-3" [style.margin-top] = "'5px'" [style.text-align] = "'left'">
+                        <span>
+                            <label>Female</label>
+                            <input type="radio" name="gender" value = "female" formControlName="gender">
+                        </span>
+                    </div>
+                    <div class="col-sm-4">
+                        <span *ngIf = "gender.invalid && (gender.dirty || gender.touched)" [class] = "'required'">Gender is required</span>
+                    </div>
+                </div>
+            </fieldset>
+            
+          </form>
+      
+        <!--Modal footer-->
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <button id = "submitButtonId" class="btn btn-primary" type="submit" (click) = "validate()">SUBMIT</button>
+        </div>
+    </div>
+  </ng-template>
+  
+  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
